@@ -29,7 +29,6 @@ app.post('/add-course', async(req, res) => {
     // push the email task in emailQueue and consume that in worker/consumer which is running in different server 
     // in this we are producing the task ny pushing into queue and consumer consumes it, this reduces the load on server
    
-   
     emailQueue.add(`${Date.now()}`, {
         "from": 'umerbaba86@gmail.com',
         'to': 'umerbaba86@yahoo.in',
