@@ -7,10 +7,10 @@ const app = express();
 
 const emailQueue = new Queue('email-queue',{
     connection: {
-        host: "caching-2a135ff2-umerbaba86-0ead.g.aivencloud.com",
-        port: 19959,
-        user: "default",
-        password: "AVNS_3uW_LvIEALUZ7yu13pd"
+        host: "",
+        port: 197,
+        user: "",
+        password: ""
     }
 });
 
