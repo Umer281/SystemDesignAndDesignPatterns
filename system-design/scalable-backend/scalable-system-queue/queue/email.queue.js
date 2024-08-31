@@ -27,10 +27,10 @@ const emailWorked = new Worker('email-queue', async(job) => {
 
 },{
     connection: {
-        host: "caching-2a135ff2-umerbaba86-0ead.g.aivencloud.com",
-        port: 19959,
+        host: "",
+        port: 2121,
         user: "default",
-        password: "AVNS_3uW_LvIEALUZ7yu13pd"
+        password: ""
     }
 });
 
