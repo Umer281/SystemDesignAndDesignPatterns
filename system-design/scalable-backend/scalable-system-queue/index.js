@@ -1,0 +1,1 @@
+const emailWorked = require('./queue/email.queue');
