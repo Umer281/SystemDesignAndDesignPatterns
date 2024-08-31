@@ -28,8 +28,7 @@ app.post('/add-course', async(req, res) => {
     //non critical task, we can use thirdparty emial service SES,Sendgrid to send email
     // push the email task in emailQueue and consume that in worker/consumer which is running in different server 
     // in this we are producing the task ny pushing into queue and consumer consumes it, this reduces the load on server
-    //AIven url rediss://default:AVNS_3uW_LvIEALUZ7yu13pd@caching-2a135ff2-umerbaba86-0ead.g.aivencloud.com:19960
-    //host on aiven caching-2a135ff2-umerbaba86-0ead.g.aivencloud.com
+   
    
     emailQueue.add(`${Date.now()}`, {
         "from": 'umerbaba86@gmail.com',

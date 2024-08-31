@@ -28,8 +28,8 @@ const emailWorked = new Worker('email-queue', async(job) => {
 },{
     connection: {
         host: "",
-        port: 2121,
-        user: "default",
+        port: 922,
+        user: "",
         password: ""
     }
 });
