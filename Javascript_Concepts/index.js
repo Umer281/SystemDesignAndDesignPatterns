@@ -88,3 +88,35 @@ const s1 = students.reduce((acc, curr) =>  {
 }, 0);
 
 console.log(s1);
+
+// module pattern 
+ const modulePattern = (function (){
+    
+    const cart  =  [];
+
+     const addToCart = function(item) {
+         cart.push(item)
+    };
+
+    const calculateTotal = function(){
+        cart.reduce((acc,curr,index)=> acc + curr.price);
+    }
+
+
+    return   {
+        addItemToCart:  function(item){
+            console.log("public methid called");
+            addToCart(item);
+      },
+      calculateTotalPrice: function(){
+         calculateTotal()
+      },
+      getCart: function(){
+        return cart.slice();
+      }
+
+    }
+}())
+
+modulePattern.addItemToCart({name: 'chips', price: 100});
+console.log(modulePattern.getCart());
