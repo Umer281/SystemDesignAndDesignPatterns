@@ -38,3 +38,53 @@ let result  = nums.myFilter((num,i,arr) => {
 
 // node js concepts buffer,middlewares,stubs,how using we can improve node perfomance clustering, how clusters are different from work sites ,
 //what is range axia search pattern
+
+
+Array.prototype.myReduce = function(cb,initialValue) {
+
+    let val =0;
+    let acc =this[0];
+    for(let i=1;i< this.length;i++){
+       val = cb(acc,this[i]);
+       acc = val;
+    }
+    return   initialValue ? initialValue + val : val;
+}
+
+Array.prototype.myReduce2 = function(cb,initialValue){
+    let accumilator = initialValue;
+    for(const i=0;i<this.length;i++) {
+        accumilator =  accumilator ? cb(accumilator,this[i]) : this[i];
+    }
+}
+
+let l2= [1,2,3,4,5];
+
+let sum = l2.myReduce(function(acc,curr){
+   return acc+ curr;
+}, 0)
+
+console.log(sum,"sum");
+
+const list3 = [[1,2],[3,4], [5,6]];
+
+const list4 = list3.reduce((acc,curr) => acc.concat(curr),[]);
+console.log(list4);
+
+
+let students =  [{name: 'Umer', Rollno: 101, marks:100}, {name: 'Ahmad', Rollno: 103, marks:40}, {name: 'Parvaiz', Rollno: 102, marks:20}];
+
+let studentsName = students.map((stu) => stu.name.toUpperCase());
+console.log(studentsName);
+
+let marksSum =students.reduce((acc,curr, index) => {
+    return acc +=curr.marks
+},0)
+console.log(marksSum, "marks sum");
+
+const s1 = students.reduce((acc, curr) =>  {
+      curr.marks = curr.marks < 60 ? curr.marks+20 : curr.marks;
+      return acc +=curr.marks >= 60 ? curr.marks : 0;
+}, 0);
+
+console.log(s1);
