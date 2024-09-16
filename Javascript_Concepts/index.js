@@ -120,3 +120,126 @@ console.log(s1);
 
 modulePattern.addItemToCart({name: 'chips', price: 100});
 console.log(modulePattern.getCart());
+
+
+//use closures to create memoization 
+
+// function memoization(n){
+//     let cache = {};
+   
+
+//     return function fib(n){
+//         //  console.log(cache);
+//          //base case
+//          if(n in cache){
+//             return cache[n];
+//         }
+//         if(n<=1){
+//             return n;
+//         }
+        
+//         cache[n] = fib(n-1) + fib(n-2);
+//         return cache;
+
+//     }
+
+// }
+
+// const fibonnaci = memoization();
+// console.log(fibonnaci(3))
+// console.log(fibonnaci(2));
+// console.log(fibonnaci(4));
+
+
+function memoizedFib() {
+    let cache = {};  // Cache will persist across function calls
+  
+    return function fib(n) {  // fib has access to 'cache' through closure
+      if (n in cache) {
+        return cache[n];
+      } else {
+        if (n <= 1) {
+        //   cache[n] = n;
+        return n;
+        } else {
+          cache[n] = fib(n - 1) + fib(n - 2);
+        }
+        return cache[n];
+      }
+    };
+  }
+  
+  const fibonacci = memoizedFib();  // Create a memoized Fibonacci function
+  console.log(fibonacci(2));  // First call, stores results in the cache
+  console.log(fibonacci(1));  // Second call, reuses the cache from the first call
+  
+
+function calculateAddingAndStore() {
+    let cache ={};
+
+    return function add(n1,n2){
+        if(cache[n1+n2]){
+            return cache[n1+n2]
+        }
+        cache[n1+n2] = n1+n2;
+    }
+}
+
+//another example of memoization in javascript
+
+
+function productOfTwo(num1,num2) {
+    for(let i=0;i<1000000000;i++){
+
+    }
+     
+    // console.log(num1, num2)
+    return num1 * num2
+}
+
+function cacheProduct(fn) {
+      let cache ={};
+
+      return function calculateProduct(num1, num2) {
+        console.log(num1,num2)
+        let a = num1+num2;
+        let key = JSON.stringify(a);
+        if(cache[key]){
+            return cache[key];
+        }
+         console.log(fn(num1,num2))
+        cache[key] =  fn(num1,num2);
+        console.log(cache)
+      }
+}
+
+
+
+// let getProduct = cacheProduct(productOfTwo);
+// console.time();
+// let p1 = getProduct(12,10);
+// console.timeEnd();
+// console.time();
+// let p2 = getProduct(12,11) 
+// console.timeEnd();
+// console.time();
+// let p3 = getProduct(12,10);
+// console.time();
+let getProduct = cacheProduct(productOfTwo);
+
+console.time("start of first program");
+let p1 = getProduct(12, 12);
+console.timeEnd("start of first program");
+
+console.time("start of second program");
+let p2 = getProduct(12, 11);
+console.timeEnd("start of second program");
+
+console.time("start of third program");
+let p3 = getProduct(12,12);
+console.timeEnd("start of third program");
+
+console.time("start of third program");
+let p4 = getProduct(12,17);
+console.timeEnd("start of third program");
+
