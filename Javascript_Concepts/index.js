@@ -243,3 +243,69 @@ console.time("start of third program");
 let p4 = getProduct(12,17);
 console.timeEnd("start of third program");
 
+
+
+//implement sum(6)(2)(1) curring 
+// function currying is used 
+function f1(a){
+    return function f2(b){
+        return function f3(c){
+            return a+b+c
+        }
+    }
+}
+
+console.log(f1(2)(3)(4));
+
+
+//Here’s a real-world example of currying using payment processing in an e-commerce application.
+//Currying can be used to handle different aspects of payment processing in stages, such as choosing the payment method,
+// applying a discount, and finally charging the customer.
+//Example: Payment Processing System
+
+function paymentMethod(method){
+    return  function discount(discount){
+        return function calculateAmountAfterDiscount(amount){
+            return amount - amount * discount
+        }
+    }
+}
+
+
+let payMethod = paymentMethod('credit_card');
+let dis = payMethod(0.10)(100);
+console.log(dis, "discount")
+
+
+//Example: Configuring a Database Connection with Currying with different environments
+
+const dbConfig = {
+    production: {
+        host: 'prod-db.example.com',
+        user: 'prodUser',
+        password: 'prodPassword',
+        database: 'prodDb'
+    },
+    staging: {
+        host: 'staging-db.example.com',
+        user: 'stagingUser',
+        password: 'stagingPassword',
+        database: 'stagingDb'
+    },
+    development: {
+        host: 'dev-db.example.com',
+        user: 'devUser',
+        password: 'devPassword',
+        database: 'devDb'
+    }
+}
+
+function dbConnection(env) {
+    return () => {
+        console.log(`connected to ${env}`);
+        return dbConfig[env];
+    }
+}
+
+const db = dbConnection('staging');
+db();
