@@ -1,0 +1,1 @@
+new content writtenappendd new testfunction now() { [native code] }
