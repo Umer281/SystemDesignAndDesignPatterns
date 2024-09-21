@@ -1,3 +1,5 @@
+const { promise } = require("bcrypt/promises");
+
 Array.prototype.myMap = function(cb) {
   
     let temp = [];
@@ -309,3 +311,48 @@ function dbConnection(env) {
 
 const db = dbConnection('staging');
 db();
+
+
+
+const pr1 = new Promise((resolve,reject) => {
+  
+    setTimeout(() => {
+       resolve("timer done") 
+    }, 1000);
+});
+
+const pr2 = "umer";
+const pr3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject("network error")
+    }, 2000);
+});
+
+// Promise.all([pr1,pr2,pr3]).then((values) => {
+//     console.log(values)
+// }).catch((error) => {
+//     console.log(error);
+// })
+
+Promise.allSettled([pr1,pr2,pr3]).then((values) => {
+    console.log(values)
+}).catch((error) => {
+    console.log(error,"error")
+})
+
+//4 How do you cancel a Promise? , we can use library cancel-token
+// in async await we can use timeout to cancel the promise, if the promise is not retuned within then it is rejected 
+
+async function requestWithinTimeLimit() {
+    try {
+        const promise1  = setTimeout(() => {
+            resolve("the promise is resolved")
+        }, 4000);
+        await promise1.timeout(3000)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+ requestWithinTimeLimit();
