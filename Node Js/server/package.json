@@ -2,13 +2,14 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",   
+  "main": "index.js",
   "scripts": {
     "start": "node index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7"
   }
 }
