@@ -1,33 +1,21 @@
-const express = require('express');
+import express from 'express';
+import { connectToMongoDb } from './connect.js';
+import setupRoutes from './route/index.js'; // Import the default export from your route file
 
 const app = express();
 const port = 8000;
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-//middlwares
-
-
-app.use((req,res, next) => {
-    console.log("iniide middlwares 1");
-     if(req.query.token) {
-          req.query.isValidUser = true;
-     }
-    next();
+// Connect to MongoDB
+connectToMongoDb('mongodb://localhost:27017/shortUrl').then(() => {
+    console.log('MongoDB is connected');
 });
 
-app.use((req,res, next) => {
-    console.log(req.query.isValidUser, "user1");
-    next();
-});
-
-//routes 
-require('./route/index')(app);  
-
-
-
+// Set up routes
+setupRoutes(app);
 
 app.listen(port, () => {
-    console.log(`server listning on ${port}`)
-})
-
+    console.log(`Server listening on port ${port}`);
+});

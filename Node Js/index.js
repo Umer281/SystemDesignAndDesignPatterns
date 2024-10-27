@@ -7,7 +7,7 @@ const start = Date.now();
 
 //importing more thread 
 
-process.env.UV_THREADPOOL_SIZE =10;
+//process.env.UV_THREADPOOL_SIZE =10;
 
 
 // how node js works 
@@ -15,7 +15,7 @@ console.log("top level code ");
 
 setTimeout(() => {
     console.log("timeout is executed")
-}, 0);
+}, 1000);
 
 
 setImmediate(() => console.log('immediate is executed'));
@@ -57,8 +57,10 @@ fs.readFile('file.txt' ,'utf-8', () => {
     crypto.pbkdf2('password 6', 'salt1', 100000, 1024, 'sha512', () => {
         console.log('password 6 done', Date.now() - start)
     });
+    
+
+    
 });
 
 console.log("hello from top level code 2");
 
-    

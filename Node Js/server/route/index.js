@@ -1,7 +1,7 @@
+import usersRoutes from './users/index.js';
+import urlShortnerRoutes from './urlShortNer/url.js';
 
-
-module.exports = (app) => {
-
-    app.use('/api/users', require('./users/index'));
-
-}   
+export default (app) => {
+    app.use('/api/users', usersRoutes);
+    app.use('/api/urlShortner', urlShortnerRoutes);
+};

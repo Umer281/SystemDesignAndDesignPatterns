@@ -1,27 +1,23 @@
-const express = require('express');
-const { fetchUsers } = require('../../controllers/users/user.controllers');
-
-
+import express from 'express';
+import { fetchUsers } from '../../controllers/users/user.controllers.js';
 
 const userRouter = express.Router();
 
-
-
-function authorise(req,res,next){
-     console.log(req.query.token,"sssssss")
-    if(!req.query.token){
-        res.send('unauthorised user');
+function authorise(req, res, next) {
+    console.log(req.query.token, "sssssss");
+    if (!req.query.token) {
+        return res.send('unauthorized user');
     }
-
     next();
 }
 
-userRouter.route('/',)
-.get(authorise,(req,res) => {
-    fetchUsers(req,res)
-})
-.post()
+userRouter.route('/')
+    .get(authorise, (req, res) => {
+        fetchUsers(req, res);
+    })
+    .post((req, res) => {
+        // Implement the post logic here
+        res.send('User created'); // Example response
+    });
 
-
-
-module.exports = userRouter;
+export default userRouter;

@@ -1,11 +1,11 @@
-const users = require('../../MOCK_DATA.json');
+import  users  from '../../MOCK_DATA.json' assert { type: "json" };;
 
 
 
 
 
 
-async function fetchUsers(req, res) {
+export async function fetchUsers(req, res) {
     
     try {
         await res.json(users);      
@@ -15,6 +15,3 @@ async function fetchUsers(req, res) {
 }
 
 
-module.exports = {
-    fetchUsers
-}

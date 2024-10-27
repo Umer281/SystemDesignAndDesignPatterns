@@ -7,7 +7,7 @@ const app = express();
 
 const emailQueue = new Queue('email-queue',{
     connection: {
-        host: "",
+        host: process.env,
         port: 197,
         user: "",
         password: ""

@@ -1,5 +1,21 @@
 const { promise } = require("bcrypt/promises");
 
+
+function printNumners(){
+
+    for(var i=1;i<=5;i++){
+        function f1(num){
+           setTimeout(() => {
+                console.log(num,"num");
+           },num*1000)
+        }
+
+        f1(i)
+    }
+}
+
+printNumners();
+
 Array.prototype.myMap = function(cb) {
   
     let temp = [];
@@ -41,6 +57,19 @@ let result  = nums.myFilter((num,i,arr) => {
 // node js concepts buffer,middlewares,stubs,how using we can improve node perfomance clustering, how clusters are different from work sites ,
 //what is range axia search pattern
 
+let red1 = [1,2,3,4,5];
+
+ function square(num) {
+     return num*num;
+ }
+
+ function displaySquare(fn, num){
+    //  console.log(fn,"22222")
+     let sq =   fn(num);
+     console.log(sq,"333333333")
+ }
+
+ displaySquare(square,2);
 
 Array.prototype.myReduce = function(cb,initialValue) {
 
@@ -259,7 +288,7 @@ function f1(a){
 
 console.log(f1(2)(3)(4));
 
-
+// in currying a function takes one argument at a time and returns a function expecting a new argument,currying means converting f(a,b) into f(a)(b)
 //Here’s a real-world example of currying using payment processing in an e-commerce application.
 //Currying can be used to handle different aspects of payment processing in stages, such as choosing the payment method,
 // applying a discount, and finally charging the customer.
@@ -312,6 +341,44 @@ function dbConnection(env) {
 const db = dbConnection('staging');
 db();
 
+//Resue varible for logic 
+
+function evaluate(type){
+     return function(a){
+         return function(b){
+             if(type == 'add') return a+b;
+             if(type == 'multiply') return a*b;
+             if(type == 'subtract')  return a-b;
+             if(type == 'divide')   return a/b;
+         }
+     }
+}
+
+let mul = evaluate('multiply');
+console.log(mul(2)(4));
+console.log(mul(10)(2))
+
+//Infinite currying  sum(1)(2)(3).... (n), eg implement sum(5)(2)(4)(5)
+
+let addAll = function (a) {
+    return function (b) {
+        if (b !== undefined) {
+            return addAll(a + b); // Recursive call to accumulate the sum
+        }
+        return a; // Final return when no argument is provided
+    };
+};
+
+// Usage
+console.log(addAll(5)(2)(3)(), "infinite currying"); // Outputs: 10 "infinite currying"
+
+
+
+let partailApplication = function (a){
+    return function(b,c){
+        return a+b+c
+    }
+}
 
 
 const pr1 = new Promise((resolve,reject) => {
@@ -356,3 +423,272 @@ async function requestWithinTimeLimit() {
 
 
  requestWithinTimeLimit();
+
+
+ let arr = [1,2,3,4];
+
+let res1 =arr.reduce((acc,pre,index, def) => {
+     return acc+pre
+});
+
+console.log(res1,"result");
+
+//spread operators and rest operators 
+
+
+
+let numsArr = [1,2,3,4];
+
+function add(num1,num2,num3,num4){
+     return num1+num2+num3+num4;
+}
+
+
+console.log(add(...numsArr), "33333333");
+
+
+let ar1 = [1,2,3,4];
+let ar2 = [4,5,6,7];
+
+let sp  = [...ar1,...ar2];
+
+
+console.log(sp,"555555555");
+
+function sumAll(...numbers) {
+    return numbers.reduce((sum, num) => sum + num, 0);
+  }
+  
+ console.log(sumAll(1, 2, 3, 4)); // 10
+  
+
+
+
+ var num1 =1;
+ var num2 = 2;
+
+
+ function add(){
+        let num1 = 2;
+        let num2 = 4;
+        return num1 +num2
+ }
+
+
+ console.log(add(),"dddddd")
+
+
+//  for(let i=1;i<5;i++){
+//        setTimeout(() => {
+//              console.log(i)
+//        }, i*1000)
+//  }
+
+
+
+let user = {
+      username: "Javascript",
+      fn1(){
+           // this -> here referes to global obj
+        console.log(this.username,"in normal function 1")
+      },
+      fn2: () => {
+         
+          console.log(this.username,"in arrow function 2")
+      }
+}
+
+
+user.fn1();
+user.fn2();
+
+//lexical scope 
+const subject = "Cs";
+
+function getSubject(){
+    // this is lexical scope as subject is accessed inside fn from outside
+    console.log(subject);
+}
+
+
+function init (){
+    const name = 'Computer science';
+     //this display name is called closure, it gives access to outer fucntion scope from inner 
+    function displayName() {
+           console.log(name);
+    }
+
+    displayName();
+}
+
+
+
+init();
+
+// scope chain 
+
+
+const e = 10;
+
+function sumAll(a){
+       
+    return function(b){
+
+        return function(c){
+            return function(d){
+                console.log(a+b+c+d+e, "sum all ");
+            }
+        }
+    }
+}
+
+
+sumAll(1)(2)(3)(4);
+
+
+
+  function createBase(num){
+        
+    return function(innerNum) {
+         console.log(innerNum + num, "num will be constant as this is closure");
+    }
+  }   
+
+
+  var closure1 = createBase(6);
+  closure1(10);
+  closure1(20);
+
+
+function find(num){
+    let a = [];
+
+    for(let i=0;i<1000000;i++){
+      a[i] = i*i;
+
+    }
+
+    return a[num];
+}
+
+
+
+console.time("6");
+find(6);
+console.timeEnd("6")
+
+console.time("12");
+find(12);
+console.timeEnd("12");
+
+function find() {
+    let a = [];
+
+    // Precompute the values once when the closure is created
+    for (let i = 0; i < 1000000; i++) {
+        a[i] = i * i;
+    }
+
+    // Return a function that accesses the precomputed array
+    return function(num) {
+        return a[num];
+    };
+}
+
+// Create the closure that retains access to the precomputed array
+const getSquare = find();
+
+console.time("6");
+console.log(getSquare(6));  // Reuses the precomputed array
+console.timeEnd("6");
+
+console.time("12");
+console.log(getSquare(12)); // Reuses the precomputed array
+console.timeEnd("12");
+
+
+
+// how would you use closure to create private counter 
+
+
+
+// example of modulo pattern
+
+const paymentMethodImplemantation = (() => {
+    let paymentMethod;
+
+   function upiPayment(){
+       console.log("upiPayment");
+       paymentMethod = 'UPI';
+   }
+
+   function cardPayment() {
+        console.log("card payment");
+        paymentMethod = 'Card';
+        //implemsntio 
+   }
+
+
+   return {
+       upiPayment,
+       cardPayment,
+       getPaymentMethod: () =>  paymentMethod
+   }
+
+
+
+
+
+})();
+
+
+
+
+paymentMethodImplemantation.cardPayment();
+paymentMethodImplemantation.upiPayment();
+console.log(paymentMethodImplemantation.getPaymentMethod());
+
+
+const memoryCache = function(fn){
+     let cache ={};
+     return function(...arguments){
+          let cacheKey = JSON.stringify(arguments);
+          if(!cache[cacheKey]){
+              cache[cacheKey] = fn(...arguments);
+          }
+          return cache[cacheKey];
+     } 
+}
+
+
+function calculateSquare(num){
+    let squareObj ={};
+    for(let i =1;i<1000000;i++){
+        squareObj[i] = i*i;
+    }
+
+    return squareObj[num];
+}
+
+
+
+let memoise = memoryCache(calculateSquare);
+console.time("10")
+console.log(memoise(10),"10 memoise")
+console.timeEnd("10");
+
+
+console.time("20");
+console.log(memoise(20))
+console.timeEnd("20");
+
+
+
+
+//Difference between Closure and scope 
+// when we create function inside fucntion the inner function is a closure and can access the varaible of outer function later,
+// where as scope in javascript defines what varible we have access to.
+
+
+
+// what is currying     
